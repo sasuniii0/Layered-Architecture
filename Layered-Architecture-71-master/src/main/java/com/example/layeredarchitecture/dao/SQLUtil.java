@@ -19,7 +19,7 @@ public class SQLUtil {
         }else{
             int i = pstm.executeUpdate();
             boolean isSaved = i > 0;
-            return (T) (Boolean) isSaved;
+            return (T) ((Boolean) isSaved);
          }
     }
 }

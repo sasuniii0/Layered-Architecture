@@ -8,16 +8,16 @@ import java.util.ArrayList;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
-    private CustomerDTO customerDTO;
+   // private CustomerDTO customerDTO;
     @Override
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
             ResultSet rst = SQLUtil.execute("SELECT * FROM Customer");
             ArrayList<CustomerDTO> customers = new ArrayList<>();
             while (rst.next()) {
                 CustomerDTO customerDTO = new CustomerDTO();
-                customerDTO.setId(rst.getString(1));
-                customerDTO.setName(rst.getString(2));
-                customerDTO.setAddress(rst.getString(3));
+                customerDTO.setId(rst.getString("id"));
+                customerDTO.setName(rst.getString("name"));
+                customerDTO.setAddress(rst.getString("address"));
                 customers.add(customerDTO);
             }
             return customers;
@@ -25,12 +25,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
-            ResultSet rst = SQLUtil.execute("INSERT INTO Customer (id,name, address) VALUES (?,?,?)", customerDTO.getId(),customerDTO.getName(),customerDTO.getAddress());
+            boolean isSaved = SQLUtil.execute("INSERT INTO Customer (id,name, address) VALUES (?,?,?)", customerDTO.getId(),customerDTO.getName(),customerDTO.getAddress());
     }
 
     @Override
     public void updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
-            ResultSet rst = SQLUtil.execute("UPDATE Customer SET name=?, address=? WHERE id=?", customerDTO.getName(), customerDTO.getAddress(), customerDTO.getId());
+            boolean isUpdated = SQLUtil.execute("UPDATE Customer SET name=?, address=? WHERE id=?", customerDTO.getName(), customerDTO.getAddress(), customerDTO.getId());
     }
 
     @Override

@@ -26,17 +26,17 @@ public class ItemDAOImpl implements ItemDAO{
 
     @Override
     public void deleteItem(String id) throws SQLException, ClassNotFoundException {
-            ResultSet rst = SQLUtil.execute("DELETE FROM Item WHERE code=?", id);
+            SQLUtil.execute("DELETE FROM Item WHERE code=?", id);
     }
 
     @Override
     public void saveItem(ItemDTO itemDTO) throws SQLException, ClassNotFoundException {
-            ResultSet rst = SQLUtil.execute("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)", itemDTO.getCode(), itemDTO.getDescription(), itemDTO.getUnitPrice(), itemDTO.getQtyOnHand());
+            SQLUtil.execute("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)", itemDTO.getCode(), itemDTO.getDescription(), itemDTO.getUnitPrice(), itemDTO.getQtyOnHand());
     }
 
     @Override
     public void updateItem(ItemDTO itemDTO) throws SQLException, ClassNotFoundException {
-            ResultSet rst = SQLUtil.execute("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?", itemDTO.getDescription(), itemDTO.getUnitPrice(), itemDTO.getQtyOnHand(), itemDTO.getCode());
+           SQLUtil.execute("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?", itemDTO.getDescription(), itemDTO.getUnitPrice(), itemDTO.getQtyOnHand(), itemDTO.getCode());
     }
 
     @Override

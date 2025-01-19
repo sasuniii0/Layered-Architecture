@@ -7,12 +7,12 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public interface CustomerDAO {
-     ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException;
-     void saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException;
-     void updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException;
-     boolean existCustomer(String id) throws SQLException, ClassNotFoundException;
-     void deleteCustomer(String id) throws SQLException, ClassNotFoundException;
-     String generateNewId() throws SQLException, ClassNotFoundException;
-     CustomerDTO searchCustomer(String newValue) throws SQLException, ClassNotFoundException;
+     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException;
+     public void saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException;
+     public void updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException;
+     public boolean existCustomer(String id) throws SQLException, ClassNotFoundException;
+     public void deleteCustomer(String id) throws SQLException, ClassNotFoundException;
+     public String generateNewId() throws SQLException, ClassNotFoundException;
+     public CustomerDTO searchCustomer(String newValue) throws SQLException, ClassNotFoundException;
 
 }
