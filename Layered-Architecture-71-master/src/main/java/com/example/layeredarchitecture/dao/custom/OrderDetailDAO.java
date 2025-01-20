@@ -1,4 +1,7 @@
-package com.example.layeredarchitecture.dao;
+package com.example.layeredarchitecture.dao.custom;
 
-public interface OrderDetailDAO {
+import com.example.layeredarchitecture.dao.CrudDAO;
+import com.example.layeredarchitecture.model.OrderDetailDTO;
+
+public interface OrderDetailDAO extends CrudDAO<OrderDetailDTO> {
 }

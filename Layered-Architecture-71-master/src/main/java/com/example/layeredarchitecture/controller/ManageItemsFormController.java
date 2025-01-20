@@ -1,7 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.dao.ItemDAOImpl;
-import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.bo.ItemBOImpl;
+import com.example.layeredarchitecture.dao.custom.impl.ItemDAOImpl;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.view.tdm.ItemTM;
 import com.jfoenix.controls.JFXButton;
@@ -40,8 +40,8 @@ public class ManageItemsFormController {
     public void initialize() {
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
         tblItems.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("description"));
-        tblItems.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
-        tblItems.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        tblItems.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        tblItems.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
 
         initUI();
 
@@ -75,8 +75,8 @@ public class ManageItemsFormController {
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Item");*/
 
-            ItemDAOImpl itemDAO = new ItemDAOImpl();
-            ArrayList<ItemDTO> itemDTO = itemDAO.loadAllItems();
+            ItemBOImpl itemBO = new ItemBOImpl();
+            ArrayList<ItemDTO> itemDTO = itemBO.getAll();
 
             for (ItemDTO itemDTOs : itemDTO){
                 tblItems.getItems().add(new ItemTM(itemDTOs.getCode(), itemDTOs.getDescription(), itemDTOs.getUnitPrice(), itemDTOs.getQtyOnHand()));
@@ -141,8 +141,8 @@ public class ManageItemsFormController {
             pstm.setString(1, code);
             pstm.executeUpdate();*/
 
-            ItemDAOImpl itemDAO = new ItemDAOImpl();
-            itemDAO.deleteItem(code);
+            ItemBOImpl itemBO = new ItemBOImpl();
+            itemBO.delete(code);
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();
@@ -190,8 +190,8 @@ public class ManageItemsFormController {
                 pstm.setInt(4, qtyOnHand);
                 pstm.executeUpdate();*/
 
-                ItemDAOImpl itemDAO = new ItemDAOImpl();
-                itemDAO.saveItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
+                ItemBOImpl itemBO = new ItemBOImpl();
+                itemBO.save(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
 
@@ -215,8 +215,8 @@ public class ManageItemsFormController {
                 pstm.setString(4, code);
                 pstm.executeUpdate();*/
 
-                ItemDAOImpl itemDAO = new ItemDAOImpl();
-                itemDAO.updateItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
+                ItemBOImpl itemBO = new ItemBOImpl();
+                itemBO.update(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
                 selectedItem.setDescription(description);
@@ -240,8 +240,8 @@ public class ManageItemsFormController {
         pstm.setString(1, code);
         return pstm.executeQuery().next();*/
 
-        ItemDAOImpl itemDAO = new ItemDAOImpl();
-        return itemDAO.existItem(code);
+        ItemBOImpl itemBO = new ItemBOImpl();
+        return itemBO.exist(code);
     }
 
 
@@ -256,8 +256,8 @@ public class ManageItemsFormController {
             } else {
                 return "I00-001";
             }*/
-            ItemDAOImpl itemDAO = new ItemDAOImpl();
-            return itemDAO.generateNewId();
+            ItemBOImpl itemBO = new ItemBOImpl();
+            return itemBO.generateNewId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {

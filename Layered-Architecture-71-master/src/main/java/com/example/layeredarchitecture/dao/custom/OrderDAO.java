@@ -1,12 +1,10 @@
-package com.example.layeredarchitecture.dao;
+package com.example.layeredarchitecture.dao.custom;
 
-import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.dao.CrudDAO;
+import com.example.layeredarchitecture.model.OrderDTO;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public interface OrderDAO {
-     String generateNewId() throws SQLException, ClassNotFoundException;
+public interface OrderDAO extends CrudDAO<OrderDTO> {
+
 }
